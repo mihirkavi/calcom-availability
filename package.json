@@ -1,6 +1,6 @@
 {
   "name": "calcom-availability",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Read-only availability from calendars connected to Cal.com (including iCloud) plus a subscribable iCalendar feed builder for tentative and confirmed plans. Library plus MCP server.",
   "license": "MIT",
   "author": "Mihir Kavishwar",
@@ -19,7 +19,7 @@
     "test": "node --import tsx --test test/*.test.ts"
   },
   "peerDependencies": {
-    "@modelcontextprotocol/sdk": "^1.32.0",
+    "@modelcontextprotocol/sdk": "^1.20.0",
     "zod": "^3.25 || ^4.0"
   },
   "peerDependenciesMeta": {
