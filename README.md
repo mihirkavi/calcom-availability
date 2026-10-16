@@ -43,6 +43,27 @@ Create the API key in Cal.com → Settings → Developer → API Keys. Store it 
 CALCOM_API_KEY=… npm run mcp   # stdio: calcom_list_calendars, calcom_busy_times
 ```
 
+## Project structure
+
+```text
+src/index.ts   Cal.com v2 client (CalComAvailabilityClient), connected-calendar parsing, findConflicts; re-exports the ICS builder
+src/ics.ts     RFC 5545 calendar builder (buildCalendar)
+src/mcp.ts     stdio MCP server (calcom_list_calendars, calcom_busy_times)
+test/          node:test unit tests
+```
+
+The package ships TypeScript sources directly (no build step). The MCP server needs the optional peer dependencies `@modelcontextprotocol/sdk` and `zod`.
+
+## Develop
+
+Requires Node.js 22.13 or later.
+
+```bash
+npm install
+npm run typecheck
+npm test
+```
+
 ## Status
 
 v0.1. Unit-tested against the documented `/v2/calendars` and `/v2/calendars/busy-times` response shapes. **It has not yet been verified against a live Cal.com account**, so check `calcom_list_calendars` first when you connect yours. The ICS builder folds lines at 75 octets, escapes text and emits `REFRESH-INTERVAL`/`X-PUBLISHED-TTL` hints.
