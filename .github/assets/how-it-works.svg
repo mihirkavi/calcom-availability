@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 460" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Inter, Helvetica, Arial, sans-serif">
+  <title>How calcom-availability works</title>
+  <desc>Read path: your calendars, including iCloud over CalDAV, connect to Cal.com; this package reads busy intervals from the Cal.com v2 API and gives your agent start and end times only. Write path: the agent's plans become an iCalendar feed at a secret URL that you subscribe to once in Apple, Google or Outlook Calendar.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#6b6b6b"/>
+    </marker>
+  </defs>
+  <rect width="1200" height="460" rx="24" fill="#F5F4F0"/>
+
+  <text x="60" y="62" font-size="15" font-weight="600" letter-spacing="2" fill="#6b6b6b">READ · BUSY TIMES ONLY</text>
+  <text x="60" y="272" font-size="15" font-weight="600" letter-spacing="2" fill="#6b6b6b">WRITE · TO A FEED YOU SUBSCRIBE TO</text>
+
+  <!-- Read row -->
+  <g>
+    <rect x="60" y="84" width="250" height="120" rx="16" fill="#fff" stroke="#E2E1DC"/>
+    <text x="185" y="132" text-anchor="middle" font-size="21" font-weight="600" fill="#111">Your calendars</text>
+    <text x="185" y="162" text-anchor="middle" font-size="16" fill="#6b6b6b">iCloud (CalDAV), Google…</text>
+
+    <rect x="400" y="84" width="250" height="120" rx="16" fill="#fff" stroke="#E2E1DC"/>
+    <text x="525" y="132" text-anchor="middle" font-size="21" font-weight="600" fill="#111">Cal.com</text>
+    <text x="525" y="162" text-anchor="middle" font-size="16" fill="#6b6b6b">already connected</text>
+
+    <rect x="740" y="84" width="400" height="120" rx="16" fill="#111"/>
+    <text x="940" y="126" text-anchor="middle" font-size="21" font-weight="600" fill="#fff">calcom-availability</text>
+    <text x="940" y="156" text-anchor="middle" font-size="16" fill="#B9B9B2">calcom_list_calendars · calcom_busy_times</text>
+    <text x="940" y="182" text-anchor="middle" font-size="16" fill="#B9B9B2">start + end only, never titles or attendees</text>
+
+    <line x1="314" y1="144" x2="394" y2="144" stroke="#6b6b6b" stroke-width="2" marker-end="url(#a)"/>
+    <line x1="654" y1="144" x2="734" y2="144" stroke="#6b6b6b" stroke-width="2" marker-end="url(#a)"/>
+  </g>
+
+  <!-- Write row -->
+  <g>
+    <rect x="60" y="294" width="250" height="120" rx="16" fill="#fff" stroke="#E2E1DC"/>
+    <text x="185" y="342" text-anchor="middle" font-size="21" font-weight="600" fill="#111">Your agent's plans</text>
+    <text x="185" y="372" text-anchor="middle" font-size="16" fill="#6b6b6b">hold · confirm · cancel</text>
+
+    <rect x="400" y="294" width="340" height="120" rx="16" fill="#111"/>
+    <text x="570" y="336" text-anchor="middle" font-size="21" font-weight="600" fill="#fff">buildCalendar()</text>
+    <text x="570" y="366" text-anchor="middle" font-size="16" fill="#B9B9B2">RFC 5545 feed you host at a secret URL</text>
+    <text x="570" y="392" text-anchor="middle" font-size="16" fill="#B9B9B2">stable UIDs, sequence, alerts</text>
+
+    <rect x="830" y="294" width="310" height="120" rx="16" fill="#fff" stroke="#E2E1DC"/>
+    <text x="985" y="342" text-anchor="middle" font-size="21" font-weight="600" fill="#111">Calendar app</text>
+    <text x="985" y="372" text-anchor="middle" font-size="16" fill="#6b6b6b">subscribe once; unsubscribe anytime</text>
+
+    <line x1="314" y1="354" x2="394" y2="354" stroke="#6b6b6b" stroke-width="2" marker-end="url(#a)"/>
+    <line x1="744" y1="354" x2="824" y2="354" stroke="#6b6b6b" stroke-width="2" marker-end="url(#a)"/>
+  </g>
+</svg>
