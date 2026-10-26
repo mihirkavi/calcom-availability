@@ -18,10 +18,10 @@
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-111111?style=flat-square"></a>
-  <img alt="TypeScript library and MCP server" src="https://img.shields.io/badge/TypeScript%20%C2%B7%20MCP-111111?style=flat-square">
-  <a href="https://github.com/mihirkavi/calcom-availability/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/mihirkavi/calcom-availability/ci.yml?branch=main&style=flat-square&label=CI&color=111111"></a>
-  <img alt="Status: v0.1, not yet tested against a live account" src="https://img.shields.io/badge/status-v0.1%20%C2%B7%20unverified%20live-6b6b6b?style=flat-square">
+  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-242424?style=flat-square"></a>
+  <img alt="TypeScript library and MCP server" src="https://img.shields.io/badge/TypeScript%20%C2%B7%20MCP-242424?style=flat-square">
+  <a href="https://github.com/mihirkavi/calcom-availability/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/mihirkavi/calcom-availability/ci.yml?branch=main&style=flat-square&label=CI&color=242424"></a>
+  <img alt="Status: v0.1, not yet tested against a live account" src="https://img.shields.io/badge/status-v0.1%20%C2%B7%20unverified%20live-898989?style=flat-square">
 </p>
 
 <p align="center">
@@ -38,15 +38,15 @@ An agent that plans things for you (dinners, meetups, trips) needs two things fr
 <table>
   <tr>
     <td width="33%" valign="top">
-      <h3>🙈 Busy, not details</h3>
+      <h3>Busy, not details</h3>
       Results contain start, end and an optional source label. Event titles and attendees are never returned.
     </td>
     <td width="33%" valign="top">
-      <h3>📅 Plans you can unsubscribe from</h3>
+      <h3>Plans you can unsubscribe from</h3>
       <code>TENTATIVE</code> holds, <code>CONFIRMED</code> plans and <code>CANCELLED</code> retractions, in a standard RFC 5545 feed.
     </td>
     <td width="33%" valign="top">
-      <h3>🪶 Small and plain</h3>
+      <h3>Small and plain</h3>
       Two library files with no runtime dependencies, plus an optional two-tool MCP server.
     </td>
   </tr>
