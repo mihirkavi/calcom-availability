@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>calcom-availability banner</title>
+<!-- Cal Sans is Cal.com's open-source (OFL) display face; served here from Fontsource on jsDelivr. -->
+<link href="https://cdn.jsdelivr.net/npm/@fontsource/cal-sans@5/index.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=block" rel="stylesheet">
+<style>
+  /* calcom-availability identity: Cal.com's monochrome palette (#242424 ink, #f4f4f4 canvas, #898989 muted, #e0e0e0 lines) */
+  :root {
+    --bg: #f4f4f4; --card: #ffffff; --ink: #242424; --muted: #898989; --line: #e0e0e0; --soft: #ededed;
+    --busy: #d6d6d6; --busy2: #c4c4c4; --solid: #242424; --solid-ink: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101010; --card: #1b1b1b; --ink: #f4f4f4; --muted: #9a9a9a; --line: #2e2e2e; --soft: #242424;
+      --busy: #333333; --busy2: #424242; --solid: #f4f4f4; --solid-ink: #101010;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1600px; height: 600px; overflow: hidden; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: "Inter", sans-serif;
+    display: grid; grid-template-columns: 760px 1fr; gap: 64px; padding: 0 96px 0 104px; align-items: center;
+  }
+  .name { font: 500 20px "JetBrains Mono"; color: var(--ink); display: flex; align-items: center; gap: 12px; }
+  .name i { width: 30px; height: 30px; border-radius: 8px; background: var(--solid); display: grid; place-items: center; }
+  .name i::after { content: ""; width: 12px; height: 12px; border: 2.5px solid var(--solid-ink); border-radius: 3px; }
+  .tag { margin-top: 30px; display: inline-block; font: 500 16px "Inter"; color: var(--muted); border: 1px solid var(--line); background: var(--card); border-radius: 8px; padding: 6px 12px; }
+  h1 { margin-top: 18px; font: 400 86px/1.0 "Cal Sans", sans-serif; letter-spacing: -0.01em; }
+  h1 span { color: var(--muted); }
+  .sub { margin-top: 24px; font: 400 23px/1.45 "Inter"; color: var(--muted); max-width: 680px; }
+
+  /* Signature motif: a week grid that shows only "busy", plus a tentative hold from the feed */
+  .cal { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 22px 22px 18px; box-shadow: 0 1px 0 var(--line), 0 24px 50px rgba(0,0,0,.06); }
+  .head { display: grid; grid-template-columns: 54px repeat(5, 1fr); font: 600 14px "Inter"; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+  .head div { text-align: center; }
+  .grid { position: relative; display: grid; grid-template-columns: 54px repeat(5, 1fr); grid-template-rows: repeat(6, 46px); }
+  .hr { font: 500 12px "JetBrains Mono"; color: var(--muted); padding-top: 4px; border-top: 1px solid var(--soft); }
+  .cell { border-top: 1px solid var(--soft); border-left: 1px solid var(--soft); }
+  .ev { position: absolute; border-radius: 8px; font: 600 13px "Inter"; padding: 6px 8px; overflow: hidden; }
+  .busy { background: repeating-linear-gradient(135deg, var(--busy) 0 6px, var(--busy2) 6px 12px); color: var(--ink); }
+  .busy b { background: var(--card); border-radius: 4px; padding: 1px 6px; font-weight: 600; }
+  .tent { border: 2px dashed var(--ink); background: var(--card); color: var(--ink); }
+  .conf { background: var(--solid); color: var(--solid-ink); }
+  .ev small { display: block; font: 500 11px "JetBrains Mono"; opacity: .75; margin-top: 2px; }
+  .ics { margin-top: 14px; font: 500 13px "JetBrains Mono"; color: var(--muted); display: flex; justify-content: space-between; }
+</style>
+</head>
+<body>
+  <div>
+    <div class="name"><i></i>calcom-availability</div>
+    <div class="tag">Open source · v0.1 · Read-only</div>
+    <h1>Know when<br>you're free.<br><span>Touch nothing.</span></h1>
+    <p class="sub">Busy times from every calendar connected to Cal.com, plus a subscribable feed for the plans your agent makes.</p>
+  </div>
+  <div class="cal" aria-hidden="true">
+    <div class="head"><div></div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div></div>
+    <div class="grid" id="g"></div>
+    <div class="ics"><span>STATUS:TENTATIVE</span><span>REFRESH-INTERVAL;VALUE=DURATION:PT30M</span></div>
+  </div>
+  <script>
+    // Build the empty grid, then place illustrative blocks (no titles: busy intervals carry start and end only).
+    const g = document.getElementById('g'); const hours = ['9:00','11:00','13:00','15:00','17:00','19:00'];
+    hours.forEach(h => { const t = document.createElement('div'); t.className = 'hr'; t.textContent = h; g.appendChild(t); for (let i = 0; i < 5; i++) { const c = document.createElement('div'); c.className = 'cell'; g.appendChild(c); } });
+    const col = d => `calc(54px + (100% - 54px) * ${d} / 5 + 4px)`, w = 'calc((100% - 54px) / 5 - 8px)';
+    const add = (cls, d, r0, r1, html) => { const e = document.createElement('div'); e.className = 'ev ' + cls; e.style.left = col(d); e.style.width = w; e.style.top = (r0 * 46 + 3) + 'px'; e.style.height = ((r1 - r0) * 46 - 6) + 'px'; e.innerHTML = html; g.appendChild(e); };
+    add('busy', 0, 0, 1.5, '<b>Busy</b>'); add('busy', 1, 2, 3.5, '<b>Busy</b>'); add('busy', 2, 0.5, 1.5, '<b>Busy</b>');
+    add('busy', 3, 1, 2.5, '<b>Busy</b>'); add('busy', 4, 3, 4, '<b>Busy</b>'); add('busy', 0, 3, 4.5, '<b>Busy</b>');
+    add('tent', 2, 4, 6, 'Hold<small>TENTATIVE</small>'); add('conf', 4, 4.5, 6, 'Plan<small>CONFIRMED</small>');
+  </script>
+</body>
+</html>
